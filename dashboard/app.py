@@ -1,19 +1,22 @@
-import pandas as pd
 import streamlit as st
-from src.analysis import compute_metrics
-from src.preprocessing import clean_data
+import pandas as pd
 
-df = pd.read_csv("data/cleaned_workout_data.csv")
+st.title("Fitness Retention Dashboard")
 
-st.title("🏋️ Fitness Retention Dashboard")
+uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
 
-total_users = df["user_id"].nunique()
-total_workouts = df["workout_done"].sum()
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
 
-st.metric("Total Users", total_users)
-st.metric("Total Workouts", total_workouts)
+    st.success("Data uploaded successfully!")
 
-st.subheader("Workout Trend")
+    st.subheader("Dataset Preview")
+    st.write(df.head())
 
-daily = df.groupby("date")["workout_done"].sum()
-st.line_chart(daily)
+    st.subheader("Basic Metrics")
+    st.write("Total Users:", df["user_id"].nunique())
+    st.write("Total Records:", len(df))
+
+    if "churn" in df.columns:
+        churn_rate = df["churn"].mean()
+        st.write("Churn Rate:", round(churn_rate, 2))
