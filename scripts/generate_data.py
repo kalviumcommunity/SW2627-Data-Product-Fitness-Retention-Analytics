@@ -28,8 +28,5 @@ def generate_dataset(num_users=100, num_days=60):
 
 if __name__ == "__main__":
     df = generate_dataset()
-
     os.makedirs("data/raw", exist_ok=True)
     df.to_csv("data/raw/workout_data.csv", index=False)
-
-    print("Dataset generated!")
