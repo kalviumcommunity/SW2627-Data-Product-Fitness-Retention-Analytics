@@ -3,8 +3,11 @@ import pandas as pd
 
 from src.data_cleaning import clean_data
 from src.feature_engineering import add_features
+from src.eda import generate_summary, activity_by_day, workouts_distribution
 
-st.title("🏋️ Fitness Retention Dashboard")
+st.set_page_config(page_title="Fitness Dashboard", layout="wide")
+
+st.title("🏋️ Fitness Retention Analytics")
 
 uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
 
@@ -12,22 +15,21 @@ if uploaded_file:
     df = clean_data(uploaded_file)
     df = add_features(df)
 
+    summary = generate_summary(df)
+
     st.success("Data processed successfully!")
 
-    st.subheader("Preview")
-    st.write(df.head())
+    # Metrics Row
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Users", summary["total_users"])
+    col2.metric("Churn Rate", round(summary["churn_rate"], 2))
+    col3.metric("Avg Workouts/User", round(summary["avg_workouts_per_user"], 2))
 
-    st.subheader("Key Metrics")
-    st.write("Total Users:", df["user_id"].nunique())
-    st.write("Total Records:", len(df))
+    st.divider()
 
-    churn_rate = df["churn"].mean()
-    st.write("Churn Rate:", round(churn_rate, 2))
+    # Charts
+    st.subheader("📈 Daily Activity")
+    st.line_chart(activity_by_day(df))
 
-    st.subheader("Workouts per User")
-    workout_counts = df.groupby("user_id")["workout_done"].sum()
-    st.bar_chart(workout_counts)
-
-    st.subheader("Daily Activity Trend")
-    daily_activity = df.groupby("date")["workout_done"].sum()
-    st.line_chart(daily_activity)
+    st.subheader("📊 Workouts Distribution")
+    st.bar_chart(workouts_distribution(df))
