@@ -1,43 +1,24 @@
 import streamlit as st
 import pandas as pd
+import os
 
 from src.data_cleaning import clean_data
 from src.feature_engineering import add_features
 from src.eda import generate_summary, activity_by_day, workouts_distribution
 
-st.set_page_config(page_title="Fitness Dashboard", layout="wide")
+# -------------------------------
+# Page Config
+# -------------------------------
+st.set_page_config(page_title="Fitness Retention Dashboard", layout="wide")
 
-st.title("🏋️ Fitness Retention Analytics")
+st.title("🏋️ Fitness Retention Analytics Dashboard")
 
-uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
-
-if uploaded_file:
-    df = clean_data(uploaded_file)
-    df = add_features(df)
-
-    summary = generate_summary(df)
-
-    st.success("Data processed successfully!")
-
-    # Metrics Row
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Users", summary["total_users"])
-    col2.metric("Churn Rate", round(summary["churn_rate"], 2))
-    col3.metric("Avg Workouts/User", round(summary["avg_workouts_per_user"], 2))
-
-    st.divider()
-
-    # Charts
-    st.subheader("📈 Daily Activity")
-    st.line_chart(activity_by_day(df))
-
-    st.subheader("📊 Workouts Distribution")
-    st.bar_chart(workouts_distribution(df))
-
-    import os
-
+# -------------------------------
+# Sidebar Options
+# -------------------------------
 st.sidebar.header("Options")
 
+uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
 use_sample = st.sidebar.button("Use Sample Dataset")
 
 file_path = None
@@ -48,10 +29,70 @@ if use_sample:
 elif uploaded_file:
     file_path = uploaded_file
 
+# -------------------------------
+# Main Logic
+# -------------------------------
 if file_path:
-    df = clean_data(file_path)
-    df = add_features(df)
+    try:
+        # Step 1: Clean Data
+        df = clean_data(file_path)
 
-    st.success("Data loaded successfully!")
+        # Step 2: Feature Engineering
+        df = add_features(df)
 
-    st.write(df.head())
+        st.success("✅ Data loaded and processed successfully!")
+
+        # -------------------------------
+        # Summary Metrics
+        # -------------------------------
+        summary = generate_summary(df)
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric("👥 Total Users", summary["total_users"])
+        col2.metric("⚠️ Churn Rate", round(summary["churn_rate"], 2))
+        col3.metric("🏋️ Avg Workouts/User", round(summary["avg_workouts_per_user"], 2))
+
+        st.divider()
+
+        # -------------------------------
+        # Charts
+        # -------------------------------
+        st.subheader("📈 Daily Activity Trend")
+        st.line_chart(activity_by_day(df))
+
+        st.subheader("📊 Workouts Distribution per User")
+        st.bar_chart(workouts_distribution(df))
+
+        st.divider()
+
+        # -------------------------------
+        # Data Preview
+        # -------------------------------
+        st.subheader("🔍 Data Preview")
+        st.dataframe(df.head())
+
+        st.divider()
+
+        # -------------------------------
+        # Export Feature
+        # -------------------------------
+        st.subheader("📥 Export Processed Data")
+
+        def convert_to_csv(data):
+            return data.to_csv(index=False).encode("utf-8")
+
+        csv = convert_to_csv(df)
+
+        st.download_button(
+            label="⬇️ Download Processed CSV",
+            data=csv,
+            file_name="processed_fitness_data.csv",
+            mime="text/csv",
+        )
+
+    except Exception as e:
+        st.error(f"❌ Error processing file: {e}")
+
+else:
+    st.info("📁 Please upload a CSV file or use the sample dataset from the sidebar.")
