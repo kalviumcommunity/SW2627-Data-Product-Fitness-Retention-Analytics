@@ -33,3 +33,25 @@ if uploaded_file:
 
     st.subheader("📊 Workouts Distribution")
     st.bar_chart(workouts_distribution(df))
+
+    import os
+
+st.sidebar.header("Options")
+
+use_sample = st.sidebar.button("Use Sample Dataset")
+
+file_path = None
+
+if use_sample:
+    file_path = "data/raw/workout_data.csv"
+
+elif uploaded_file:
+    file_path = uploaded_file
+
+if file_path:
+    df = clean_data(file_path)
+    df = add_features(df)
+
+    st.success("Data loaded successfully!")
+
+    st.write(df.head())
