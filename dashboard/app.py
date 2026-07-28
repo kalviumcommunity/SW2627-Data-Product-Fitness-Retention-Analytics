@@ -34,13 +34,24 @@ elif uploaded_file:
 # -------------------------------
 if file_path:
     try:
-        # Step 1: Clean Data
+        df = pd.read_csv(file_path)
+
+        # Step 1: Validate Data
+        errors = validate_data(df)
+
+        if errors:
+            st.error("❌ Data validation failed:")
+            for err in errors:
+                st.write(f"- {err}")
+            st.stop()
+
+        # Step 2: Clean Data
         df = clean_data(file_path)
 
-        # Step 2: Feature Engineering
+        # Step 3: Feature Engineering
         df = add_features(df)
 
-        st.success("✅ Data loaded and processed successfully!")
+        st.success("✅ Data validated and processed successfully!")
 
         # -------------------------------
         # Summary Metrics
