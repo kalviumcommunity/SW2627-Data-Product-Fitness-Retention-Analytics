@@ -7,6 +7,7 @@ from src.data_validation import validate_data
 from src.feature_engineering import add_features
 from src.eda import generate_summary, activity_by_day, workouts_distribution
 from src.retention import compute_retention
+from src.anomaly import detect_anomalies
 
 # -------------------------------
 # Page Config
@@ -121,6 +122,21 @@ if file_path:
         st.dataframe(retention_df)
 
         st.line_chart(retention_df.T)
+        
+        st.divider()
+        st.subheader("🚨 Anomaly Detection")
+
+        anomalies_df = detect_anomalies(df)
+
+        if anomalies_df.empty:
+            st.success("✅ No unusual user behavior detected")
+        else:
+            st.warning("⚠️ Unusual activity detected!")
+
+            st.dataframe(anomalies_df)
+
+            st.bar_chart(anomalies_df.set_index("user_id"))
+            
         # -------------------------------
         # Data Preview
         # -------------------------------
