@@ -50,6 +50,34 @@ if file_path:
 
         # Step 3: Feature Engineering
         df = add_features(df)
+        df["date"] = pd.to_datetime(df["date"])
+        st.sidebar.subheader("🔍 Filters")
+
+        # Date filter
+        min_date = df["date"].min()
+        max_date = df["date"].max()
+
+        date_range = st.sidebar.date_input(
+            "Select Date Range",
+            [min_date, max_date]
+        )
+
+        # User filter
+        user_ids = df["user_id"].unique()
+        selected_users = st.sidebar.multiselect(
+            "Select Users",
+            user_ids,
+            default=user_ids[:10]  # default first 10 users
+        )
+
+        # Apply date filter
+        if len(date_range) == 2:
+            start_date, end_date = date_range
+            df = df[(df["date"] >= pd.to_datetime(start_date)) & 
+                    (df["date"] <= pd.to_datetime(end_date))]
+
+        # Apply user filter
+        df = df[df["user_id"].isin(selected_users)]
 
         st.success("✅ Data validated and processed successfully!")
 
@@ -84,6 +112,7 @@ if file_path:
         st.dataframe(df.head())
 
         st.divider()
+
 
         # -------------------------------
         # Export Feature
