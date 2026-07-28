@@ -10,7 +10,7 @@ This project helps analyze fitness app user behavior by answering key questions:
 
 - Are users staying active?
 - When do users drop off?
-- Who is likely to churn?
+- Who appears likely to churn based on inactivity rules?
 - Are there unusual usage patterns?
 
 It transforms raw workout data into actionable insights using analytics and visualization.
@@ -39,7 +39,7 @@ It transforms raw workout data into actionable insights using analytics and visu
 ### 📈 Advanced Analytics
 - **Cohort Retention Analysis**
 - **Anomaly Detection**
-- **Churn Risk Prediction**
+- **Heuristic Churn Labeling**
 
 ### 📤 Export
 - Download processed dataset as CSV
@@ -47,20 +47,27 @@ It transforms raw workout data into actionable insights using analytics and visu
 ---
 
 ## 🏗️ Project Structure
+```text
 .
 ├── dashboard/
-│ └── app.py # Streamlit dashboard
+│   └── app.py
+├── scripts/
+│   ├── clean_data.py
+│   └── generate_data.py
 ├── src/
-│ ├── data_cleaning.py
-│ ├── feature_engineering.py
-│ ├── eda.py
-│ ├── retention.py
-│ ├── anomaly.py
-│ └── churn.py
+│   ├── anomaly.py
+│   ├── churn.py
+│   ├── data_cleaning.py
+│   ├── data_preprocessing.py
+│   ├── data_validation.py
+│   ├── eda.py
+│   ├── feature_engineering.py
+│   ├── model.py
+│   └── retention.py
 ├── data/
-│ └── raw/
-│ └── workout_data.csv
-├── README.md
+│   └── raw/ (generated after running scripts/generate_data.py)
+└── README.md
+```
 
 ---
 
@@ -75,24 +82,32 @@ It transforms raw workout data into actionable insights using analytics and visu
 ## ▶️ How to Run
 
 ### 1. Clone the Repository
-<bash>
-`git clone https://github.com/kalviumcommunity/SW2627-Data-Product-Fitness-Retention-Analytics.git`
-`cd SW2627-Data-Product-Fitness-Retention-Analytics`
+```bash
+git clone https://github.com/kalviumcommunity/SW2627-Data-Product-Fitness-Retention-Analytics.git
+cd SW2627-Data-Product-Fitness-Retention-Analytics
+```
 
 ### 2. Install Dependencies
-<bash>
-`pip install -r requirements.txt`
+```bash
+pip install -r requirements.txt
+```
 
-### 3. Run the App
-<bash>
-`streamlit run dashboard/app.py`
+### 3. Generate Sample Dataset
+```bash
+python scripts/generate_data.py
+```
+
+### 4. Run the App
+```bash
+streamlit run dashboard/app.py
+```
 
 ---
 
 ### 📊 Key Concepts Used
 - Cohort Analysis (Retention)
 - Rule-based Anomaly Detection
-- Churn Prediction (Heuristic-based)
+- Heuristic Churn Labeling
 - Data Cleaning & Feature Engineering
 - Interactive Dashboards
 
