@@ -3,8 +3,10 @@ import pandas as pd
 import os
 
 from src.data_cleaning import clean_data
+from src.data_validation import validate_data
 from src.feature_engineering import add_features
 from src.eda import generate_summary, activity_by_day, workouts_distribution
+from src.retention import compute_retention
 
 # -------------------------------
 # Page Config
@@ -46,7 +48,10 @@ if file_path:
             st.stop()
 
         # Step 2: Clean Data
-        df = clean_data(file_path)
+        if isinstance(df, pd.DataFrame):
+            df = clean_data(df)
+        else:
+            df = clean_data(file_path)
 
         # Step 3: Feature Engineering
         df = add_features(df)
@@ -105,6 +110,17 @@ if file_path:
 
         st.divider()
 
+        st.divider()
+        
+        st.subheader("📊 Retention Analysis (Cohorts)")
+
+        retention_df = compute_retention(df)
+
+        st.write("Shows how many users return after their first workout")
+
+        st.dataframe(retention_df)
+
+        st.line_chart(retention_df.T)
         # -------------------------------
         # Data Preview
         # -------------------------------
