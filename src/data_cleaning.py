@@ -1,7 +1,11 @@
 import pandas as pd
 
-def clean_data(file):
-    df = pd.read_csv(file)
+
+def clean_data(data):
+    if isinstance(data, pd.DataFrame):
+        df = data.copy()
+    else:
+        df = pd.read_csv(data)
 
     df["date"] = pd.to_datetime(df["date"])
     df = df.drop_duplicates()
