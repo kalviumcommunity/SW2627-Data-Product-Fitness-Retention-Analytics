@@ -1,14 +1,118 @@
-# SW2627-Data-Product-Fitness-Retention-Analytics
+# 🏋️ Fitness Retention Analytics Dashboard
 
-## Problem Statement
-We aim to analyze user behavior in fitness apps and predict user retention using activity, engagement, and workout patterns.
+A data-driven analytics dashboard to understand **user engagement, retention, and churn** in a fitness application.
 
-## Key Questions
-- What behaviors indicate churn?
-- Which users are likely to drop off?
-- What features improve retention?
+---
 
-## Synthetic dataset
-Generate the example dataset (written to `data/raw/fitness_user_data.csv`) with:
+## 🚀 Overview
 
-- `python data/generate_data.py`
+This project helps analyze fitness app user behavior by answering key questions:
+
+- Are users staying active?
+- When do users drop off?
+- Who is likely to churn?
+- Are there unusual usage patterns?
+
+It transforms raw workout data into actionable insights using analytics and visualization.
+
+---
+
+## 🧩 Features
+
+### 📥 Data Handling
+- Upload your own dataset (CSV)
+- Use sample dataset for quick demo
+- Data validation and cleaning
+
+### 📊 Analytics Dashboard
+- Total Users
+- Churn Rate
+- Average Workouts per User
+- Daily Activity Trends
+- Workout Distribution
+
+### 🔍 Filters
+- Date range filtering
+- User-level filtering
+- Fully dynamic dashboard updates
+
+### 📈 Advanced Analytics
+- **Cohort Retention Analysis**
+- **Anomaly Detection**
+- **Churn Risk Prediction**
+
+### 📤 Export
+- Download processed dataset as CSV
+
+---
+
+## 🏗️ Project Structure
+.
+├── dashboard/
+│ └── app.py # Streamlit dashboard
+├── src/
+│ ├── data_cleaning.py
+│ ├── feature_engineering.py
+│ ├── eda.py
+│ ├── retention.py
+│ ├── anomaly.py
+│ └── churn.py
+├── data/
+│ └── raw/
+│ └── workout_data.csv
+├── README.md
+
+---
+
+## ⚙️ Tech Stack
+
+- **Python**
+- **Pandas** (data processing)
+- **Streamlit** (dashboard UI)
+
+---
+
+## ▶️ How to Run
+
+### 1. Clone the Repository
+<bash>
+`git clone https://github.com/kalviumcommunity/SW2627-Data-Product-Fitness-Retention-Analytics.git`
+`cd SW2627-Data-Product-Fitness-Retention-Analytics`
+
+### 2. Install Dependencies
+<bash>
+`pip install -r requirements.txt`
+
+### 3. Run the App
+<bash>
+`streamlit run dashboard/app.py`
+
+---
+
+### 📊 Key Concepts Used
+- Cohort Analysis (Retention)
+- Rule-based Anomaly Detection
+- Churn Prediction (Heuristic-based)
+- Data Cleaning & Feature Engineering
+- Interactive Dashboards
+
+### 🧠 Future Improvements
+- ML-based churn prediction
+- Real-time data processing
+- Heatmaps for retention visualization
+- User segmentation (beginner vs advanced)
+- Notifications for high-risk users
+
+### 👥 Team
+- Sujaykiran
+- Jevin Josh
+- Manuel Jemimah Mary
+- Sarvesh
+
+---
+
+## 📌 Conclusion
+
+This project demonstrates how raw data can be transformed into meaningful insights that help improve user retention and engagement in fitness applications.
+
+___
