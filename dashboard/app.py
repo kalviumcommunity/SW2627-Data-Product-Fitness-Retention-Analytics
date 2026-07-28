@@ -8,6 +8,7 @@ from src.feature_engineering import add_features
 from src.eda import generate_summary, activity_by_day, workouts_distribution
 from src.retention import compute_retention
 from src.anomaly import detect_anomalies
+from src.churn import predict_churn
 
 # -------------------------------
 # Page Config
@@ -136,6 +137,29 @@ if file_path:
             st.dataframe(anomalies_df)
 
             st.bar_chart(anomalies_df.set_index("user_id"))
+
+        st.divider()
+        st.subheader("⚠️ Churn Risk Prediction")
+
+        churn_df = predict_churn(df)
+
+        high_risk = churn_df[churn_df["churn_risk"] == True]
+
+        st.write("Users likely to stop using the app based on activity patterns")
+
+        col1, col2 = st.columns(2)
+
+        col1.metric("🚨 High Risk Users", len(high_risk))
+        col2.metric("👥 Total Users", churn_df.shape[0])
+
+        if high_risk.empty:
+            st.success("✅ No high-risk users detected")
+        else:
+            st.warning("⚠️ Some users are at risk of churning")
+
+            st.dataframe(high_risk)
+
+            st.bar_chart(high_risk.set_index("user_id")["days_inactive"])
             
         # -------------------------------
         # Data Preview
