@@ -3,8 +3,12 @@ import pandas as pd
 import os
 
 from src.data_cleaning import clean_data
+from src.data_validation import validate_data
 from src.feature_engineering import add_features
 from src.eda import generate_summary, activity_by_day, workouts_distribution
+from src.retention import compute_retention
+from src.anomaly import detect_anomalies
+from src.churn import predict_churn
 
 # -------------------------------
 # Page Config
@@ -34,13 +38,55 @@ elif uploaded_file:
 # -------------------------------
 if file_path:
     try:
-        # Step 1: Clean Data
-        df = clean_data(file_path)
+        df = pd.read_csv(file_path)
 
-        # Step 2: Feature Engineering
+        # Step 1: Validate Data
+        errors = validate_data(df)
+
+        if errors:
+            st.error("❌ Data validation failed:")
+            for err in errors:
+                st.write(f"- {err}")
+            st.stop()
+
+        # Step 2: Clean Data
+        if isinstance(df, pd.DataFrame):
+            df = clean_data(df)
+        else:
+            df = clean_data(file_path)
+
+        # Step 3: Feature Engineering
         df = add_features(df)
+        df["date"] = pd.to_datetime(df["date"])
+        st.sidebar.subheader("🔍 Filters")
 
-        st.success("✅ Data loaded and processed successfully!")
+        # Date filter
+        min_date = df["date"].min()
+        max_date = df["date"].max()
+
+        date_range = st.sidebar.date_input(
+            "Select Date Range",
+            [min_date, max_date]
+        )
+
+        # User filter
+        user_ids = df["user_id"].unique()
+        selected_users = st.sidebar.multiselect(
+            "Select Users",
+            user_ids,
+            default=user_ids[:10]  # default first 10 users
+        )
+
+        # Apply date filter
+        if len(date_range) == 2:
+            start_date, end_date = date_range
+            df = df[(df["date"] >= pd.to_datetime(start_date)) & 
+                    (df["date"] <= pd.to_datetime(end_date))]
+
+        # Apply user filter
+        df = df[df["user_id"].isin(selected_users)]
+
+        st.success("✅ Data validated and processed successfully!")
 
         # -------------------------------
         # Summary Metrics
@@ -66,6 +112,55 @@ if file_path:
 
         st.divider()
 
+        st.divider()
+        
+        st.subheader("📊 Retention Analysis (Cohorts)")
+
+        retention_df = compute_retention(df)
+
+        st.write("Shows how many users return after their first workout")
+
+        st.dataframe(retention_df)
+
+        st.line_chart(retention_df.T)
+        
+        st.divider()
+        st.subheader("🚨 Anomaly Detection")
+
+        anomalies_df = detect_anomalies(df)
+
+        if anomalies_df.empty:
+            st.success("✅ No unusual user behavior detected")
+        else:
+            st.warning("⚠️ Unusual activity detected!")
+
+            st.dataframe(anomalies_df)
+
+            st.bar_chart(anomalies_df.set_index("user_id"))
+
+        st.divider()
+        st.subheader("⚠️ Churn Risk Prediction")
+
+        churn_df = predict_churn(df)
+
+        high_risk = churn_df[churn_df["churn_risk"] == True]
+
+        st.write("Users likely to stop using the app based on activity patterns")
+
+        col1, col2 = st.columns(2)
+
+        col1.metric("🚨 High Risk Users", len(high_risk))
+        col2.metric("👥 Total Users", churn_df.shape[0])
+
+        if high_risk.empty:
+            st.success("✅ No high-risk users detected")
+        else:
+            st.warning("⚠️ Some users are at risk of churning")
+
+            st.dataframe(high_risk)
+
+            st.bar_chart(high_risk.set_index("user_id")["days_inactive"])
+            
         # -------------------------------
         # Data Preview
         # -------------------------------
@@ -73,6 +168,7 @@ if file_path:
         st.dataframe(df.head())
 
         st.divider()
+
 
         # -------------------------------
         # Export Feature
