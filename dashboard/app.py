@@ -169,7 +169,18 @@ if file_path:
             st.dataframe(high_risk)
 
             st.bar_chart(high_risk.set_index("user_id")["days_inactive"])
-            
+
+        st.divider()
+        st.subheader("👤 User Drill-down")
+
+        selected_user = st.selectbox("Select User", df["user_id"].unique())
+
+        user_df = df[df["user_id"] == selected_user]
+
+        st.write(f"### Activity for User {selected_user}")
+        st.line_chart(user_df.groupby("date")["workout_id"].count())
+        st.dataframe(user_df)
+                    
         # -------------------------------
         # Data Preview
         # -------------------------------
