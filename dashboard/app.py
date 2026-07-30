@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import os
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 from src.data_cleaning import clean_data
 from src.data_validation import validate_data
@@ -137,6 +139,13 @@ if file_path:
             st.dataframe(anomalies_df)
 
             st.bar_chart(anomalies_df.set_index("user_id"))
+
+            st.subheader("🔥 Retention Heatmap")
+
+            fig, ax = plt.subplots()
+            sns.heatmap(retention_df, annot=False, cmap="coolwarm", ax=ax)
+
+            st.pyplot(fig)
 
         st.divider()
         st.subheader("⚠️ Churn Risk Prediction")
