@@ -11,6 +11,7 @@ from src.eda import generate_summary, activity_by_day, workouts_distribution
 from src.retention import compute_retention
 from src.anomaly import detect_anomalies
 from src.churn import predict_churn
+from src.insights import generate_insights
 
 # -------------------------------
 # Page Config
@@ -180,6 +181,14 @@ if file_path:
         st.write(f"### Activity for User {selected_user}")
         st.line_chart(user_df.groupby("date")["workout_id"].count())
         st.dataframe(user_df)
+
+        st.divider()
+        st.subheader("🧠 Auto Insights")
+
+        insights = generate_insights(summary, anomalies_df, churn_df)
+
+        for ins in insights:
+            st.write(ins)
                     
         # -------------------------------
         # Data Preview
