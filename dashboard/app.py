@@ -3,6 +3,13 @@ import pandas as pd
 import os
 import seaborn as sns
 import matplotlib.pyplot as plt
+import sys
+
+from utils.path_manager import setup_project_root
+
+setup_project_root()
+# Fix import path issue
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.data_cleaning import clean_data
 from src.data_validation import validate_data
