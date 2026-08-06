@@ -1,0 +1,375 @@
+/* ==========================================================
+   FITNESS RETENTION DASHBOARD
+   Custom Theme
+========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+html, body, [class*="css"]{
+    font-family: 'Inter', sans-serif;
+}
+
+/* ==========================================================
+BACKGROUND
+========================================================== */
+
+.stApp{
+    background:#F5F7FB;
+}
+
+/* ==========================================================
+MAIN CONTAINER
+========================================================== */
+
+.block-container{
+    padding-top:1.2rem;
+    padding-bottom:2rem;
+    padding-left:2rem;
+    padding-right:2rem;
+    max-width:1600px;
+}
+
+/* ==========================================================
+REMOVE STREAMLIT DEFAULT SPACING
+========================================================== */
+
+div[data-testid="stVerticalBlock"]{
+    gap:0.8rem;
+}
+
+/* ==========================================================
+CARDS
+========================================================== */
+
+.dashboard-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:
+        0px 1px 3px rgba(16,24,40,0.05),
+        0px 6px 18px rgba(16,24,40,0.06);
+
+    border:1px solid #EEF2F7;
+
+    transition:.25s ease;
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+}
+
+/* ==========================================================
+KPI CARDS
+========================================================== */
+
+.kpi-title{
+
+    font-size:13px;
+
+    color:#64748B;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    font-weight:600;
+}
+
+.kpi-value{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    margin-top:8px;
+}
+
+.kpi-sub{
+
+    color:#64748B;
+
+    font-size:14px;
+}
+
+.kpi-growth{
+
+    color:#16A34A;
+
+    font-weight:600;
+
+    font-size:14px;
+}
+
+.kpi-loss{
+
+    color:#EF4444;
+
+    font-weight:600;
+}
+
+/* ==========================================================
+SECTION TITLES
+========================================================== */
+
+.section-title{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    margin-bottom:5px;
+}
+
+.section-sub{
+
+    color:#64748B;
+
+    font-size:14px;
+
+    margin-bottom:18px;
+}
+
+/* ==========================================================
+BADGES
+========================================================== */
+
+.badge{
+
+    display:inline-block;
+
+    padding:5px 12px;
+
+    border-radius:999px;
+
+    font-size:12px;
+
+    font-weight:600;
+}
+
+.badge-green{
+
+    background:#DCFCE7;
+
+    color:#15803D;
+}
+
+.badge-yellow{
+
+    background:#FEF3C7;
+
+    color:#B45309;
+}
+
+.badge-red{
+
+    background:#FEE2E2;
+
+    color:#DC2626;
+}
+
+.badge-blue{
+
+    background:#DBEAFE;
+
+    color:#2563EB;
+}
+
+/* ==========================================================
+BUTTONS
+========================================================== */
+
+.stButton>button{
+
+    border-radius:12px;
+
+    background:#4F46E5;
+
+    color:white;
+
+    border:none;
+
+    padding:.55rem 1rem;
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.stButton>button:hover{
+
+    background:#4338CA;
+
+}
+
+/* ==========================================================
+SELECTBOX
+========================================================== */
+
+.stSelectbox div[data-baseweb="select"]{
+
+    border-radius:12px;
+
+}
+
+/* ==========================================================
+DATE INPUT
+========================================================== */
+
+.stDateInput{
+
+    border-radius:12px;
+
+}
+
+/* ==========================================================
+METRIC
+========================================================== */
+
+[data-testid="metric-container"]{
+
+    background:white;
+
+    border-radius:16px;
+
+    border:1px solid #EEF2F7;
+
+    padding:16px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+
+}
+
+/* ==========================================================
+TABLES
+========================================================== */
+
+table{
+
+    border-collapse:collapse;
+
+}
+
+thead{
+
+    background:#F8FAFC;
+
+}
+
+th{
+
+    color:#64748B;
+
+    font-weight:600;
+
+}
+
+td{
+
+    padding:10px;
+
+}
+
+/* ==========================================================
+SIDEBAR
+========================================================== */
+
+section[data-testid="stSidebar"]{
+
+    background:white;
+
+    border-right:1px solid #E5E7EB;
+
+}
+
+/* ==========================================================
+PROGRESS BAR
+========================================================== */
+
+.stProgress>div>div{
+
+    background:#4F46E5;
+
+}
+
+/* ==========================================================
+FILE UPLOADER
+========================================================== */
+
+[data-testid="stFileUploader"]{
+
+    border-radius:14px;
+
+    border:2px dashed #CBD5E1;
+
+    background:white;
+
+}
+
+/* ==========================================================
+PLOTLY CHARTS
+========================================================== */
+
+.js-plotly-plot{
+
+    border-radius:16px;
+
+}
+
+/* ==========================================================
+SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#EEF2F7;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#CBD5E1;
+
+    border-radius:50px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#94A3B8;
+}
+
+/* ==========================================================
+FOOTER
+========================================================== */
+
+footer{
+
+    visibility:hidden;
+
+}
+
+header{
+
+    visibility:hidden;
+
+}
+
+/* ==========================================================
+END
+========================================================== */
