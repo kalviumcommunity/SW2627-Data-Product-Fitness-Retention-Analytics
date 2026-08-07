@@ -33,7 +33,7 @@ def _kpi_card(
     with col:
         st.markdown(
             f"""
-            <div class="dashboard-card" style="padding:20px 22px;min-height:130px;">
+            <div style="padding:20px 22px;min-height:130px;background:white;border-radius:18px;box-shadow:0 1px 3px rgba(16,24,40,0.05),0 6px 18px rgba(16,24,40,0.06);border:1px solid #EEF2F7;transition:.25s ease;">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;">
                     <span style="font-size:26px;">{icon}</span>
                     <span style="font-size:13px;font-weight:600;color:{delta_color};">

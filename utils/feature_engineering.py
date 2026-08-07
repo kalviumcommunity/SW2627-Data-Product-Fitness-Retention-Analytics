@@ -102,16 +102,18 @@ def add_average_duration(df: pd.DataFrame) -> pd.DataFrame:
 
 def add_recency(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Days since last activity.
+    Days since last activity — relative to the dataset's max date,
+    not today, so historical datasets aren't all classified as high-risk.
     """
 
     if "latest_activity" not in df.columns:
         return df
 
-    today = pd.Timestamp.today()
+    # Use dataset max date as the reference point
+    reference_date = df["latest_activity"].max()
 
     df["recency_days"] = (
-        today - df["latest_activity"]
+        reference_date - df["latest_activity"]
     ).dt.days
 
     return df

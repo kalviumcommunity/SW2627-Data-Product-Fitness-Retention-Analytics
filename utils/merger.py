@@ -126,10 +126,11 @@ def add_active_flag(
     if "latest_activity" not in df.columns:
         return df
 
-    today = pd.Timestamp.today()
+    # Use dataset's max date as reference so historical data works correctly
+    reference_date = df["latest_activity"].max()
 
     days = (
-        today - df["latest_activity"]
+        reference_date - df["latest_activity"]
     ).dt.days
 
     df["is_active"] = days <= inactivity_days
