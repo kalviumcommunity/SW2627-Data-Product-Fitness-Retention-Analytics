@@ -1,375 +1,192 @@
-/* ==========================================================
-   FITNESS RETENTION DASHBOARD
-   Custom Theme
-========================================================== */
+/* ============================================================
+   FERIP Premium Analytics Theme — Clean Light Aesthetic
+   Font: Inter  |  Colors: Slate / Indigo / Violet
+============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-html, body, [class*="css"]{
-    font-family: 'Inter', sans-serif;
+html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
+
+/* ── App background ─────────────────────────────────── */
+.stApp {
+    background: #F8FAFC !important;
+    min-height: 100vh;
 }
 
-/* ==========================================================
-BACKGROUND
-========================================================== */
-
-.stApp{
-    background:#F5F7FB;
+/* ── Main content area ──────────────────────────────── */
+.block-container {
+    padding-top: 1.2rem !important;
+    padding-bottom: 2rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    max-width: 1600px !important;
 }
 
-/* ==========================================================
-MAIN CONTAINER
-========================================================== */
-
-.block-container{
-    padding-top:1.2rem;
-    padding-bottom:2rem;
-    padding-left:2rem;
-    padding-right:2rem;
-    max-width:1600px;
+/* ── Sidebar — Crisp Modern Light Sidebar ───────────── */
+section[data-testid="stSidebar"] {
+    background-color: #FFFFFF !important;
+    border-right: 1px solid #E2E8F0 !important;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.03) !important;
 }
 
-/* ==========================================================
-REMOVE STREAMLIT DEFAULT SPACING
-========================================================== */
-
-div[data-testid="stVerticalBlock"]{
-    gap:0.8rem;
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] label {
+    color: #1E293B !important;
 }
 
-/* ==========================================================
-CARDS
-========================================================== */
-
-.dashboard-card{
-
-    background:white;
-
-    border-radius:18px;
-
-    padding:22px;
-
-    box-shadow:
-        0px 1px 3px rgba(16,24,40,0.05),
-        0px 6px 18px rgba(16,24,40,0.06);
-
-    border:1px solid #EEF2F7;
-
-    transition:.25s ease;
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+    font-size: 13px !important;
+    color: #334155 !important;
 }
 
-.dashboard-card:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.08);
-
+section[data-testid="stSidebar"] .stRadio div[role="radiogroup"] > label {
+    background: #F8FAFC !important;
+    border-radius: 10px !important;
+    padding: 6px 12px !important;
+    margin-bottom: 4px !important;
+    border: 1px solid #F1F5F9 !important;
+    transition: all 0.2s ease !important;
 }
 
-/* ==========================================================
-KPI CARDS
-========================================================== */
-
-.kpi-title{
-
-    font-size:13px;
-
-    color:#64748B;
-
-    text-transform:uppercase;
-
-    letter-spacing:.5px;
-
-    font-weight:600;
+section[data-testid="stSidebar"] .stRadio div[role="radiogroup"] > label:hover {
+    background: #EEF2FF !important;
+    border-color: #C7D2FE !important;
 }
 
-.kpi-value{
-
-    font-size:42px;
-
-    font-weight:700;
-
-    color:#111827;
-
-    margin-top:8px;
+section[data-testid="stSidebar"] .stSelectbox > div > div {
+    background: #F8FAFC !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 10px !important;
 }
 
-.kpi-sub{
-
-    color:#64748B;
-
-    font-size:14px;
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] {
+    border: 1.5px dashed #CBD5E1 !important;
+    border-radius: 10px !important;
+    background: #F8FAFC !important;
 }
 
-.kpi-growth{
-
-    color:#16A34A;
-
-    font-weight:600;
-
-    font-size:14px;
+/* ── Metric cards ───────────────────────────────────── */
+[data-testid="metric-container"] {
+    background: #FFFFFF !important;
+    border-radius: 18px !important;
+    border: 1px solid #E2E8F0 !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 16px rgba(15,23,42,0.04) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+[data-testid="metric-container"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.08) !important;
+}
+[data-testid="metric-container"] [data-testid="stMetricLabel"] {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    color: #64748B !important;
+}
+[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    font-size: 30px !important;
+    font-weight: 800 !important;
+    color: #0F172A !important;
 }
 
-.kpi-loss{
-
-    color:#EF4444;
-
-    font-weight:600;
+/* ── Buttons ────────────────────────────────────────── */
+.stButton > button {
+    background: linear-gradient(135deg,#4F46E5,#7C3AED) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 12px rgba(79,70,229,0.25) !important;
+}
+.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 8px 20px rgba(79,70,229,0.35) !important;
 }
 
-/* ==========================================================
-SECTION TITLES
-========================================================== */
-
-.section-title{
-
-    font-size:30px;
-
-    font-weight:700;
-
-    color:#111827;
-
-    margin-bottom:5px;
+/* ── Tabs ───────────────────────────────────────────── */
+.stTabs [data-baseweb="tab-list"] {
+    background: #F1F5F9 !important;
+    border-radius: 14px !important;
+    padding: 4px !important;
+    gap: 4px !important;
+    border: 1px solid #E2E8F0 !important;
+}
+.stTabs [data-baseweb="tab"] {
+    border-radius: 10px !important;
+    color: #64748B !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    padding: 8px 18px !important;
+}
+.stTabs [aria-selected="true"] {
+    background: white !important;
+    color: #4F46E5 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
 }
 
-.section-sub{
-
-    color:#64748B;
-
-    font-size:14px;
-
-    margin-bottom:18px;
+/* ── Expander ───────────────────────────────────────── */
+.streamlit-expanderHeader {
+    background: #F8FAFC !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    color: #0F172A !important;
+    border: 1px solid #E2E8F0 !important;
 }
 
-/* ==========================================================
-BADGES
-========================================================== */
-
-.badge{
-
-    display:inline-block;
-
-    padding:5px 12px;
-
-    border-radius:999px;
-
-    font-size:12px;
-
-    font-weight:600;
+/* ── Alerts ─────────────────────────────────────────── */
+[data-testid="stAlert"] {
+    border-radius: 14px !important;
+    border: none !important;
+    font-weight: 500 !important;
 }
 
-.badge-green{
-
-    background:#DCFCE7;
-
-    color:#15803D;
+/* ── Progress bar ───────────────────────────────────── */
+.stProgress > div > div {
+    background: linear-gradient(90deg,#4F46E5,#7C3AED) !important;
+    border-radius: 999px !important;
 }
 
-.badge-yellow{
-
-    background:#FEF3C7;
-
-    color:#B45309;
+/* ── Selectbox main area ────────────────────────────── */
+.stSelectbox > div > div {
+    border-radius: 12px !important;
+    border: 1.5px solid #E2E8F0 !important;
+    background: white !important;
+    font-size: 13px !important;
+    color: #0F172A !important;
 }
 
-.badge-red{
-
-    background:#FEE2E2;
-
-    color:#DC2626;
+/* ── DataFrames ─────────────────────────────────────── */
+[data-testid="stDataFrame"] {
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    border: 1px solid #E2E8F0 !important;
 }
 
-.badge-blue{
+/* ── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F1F5F9; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 50px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
-    background:#DBEAFE;
+/* ── Spacing ────────────────────────────────────────── */
+div[data-testid="stVerticalBlock"] { gap: 0.6rem; }
 
-    color:#2563EB;
+/* ── Hide footer only; keep top header toggle visible ─────── */
+footer { visibility: hidden !important; }
+[data-testid="stHeader"] {
+    background: transparent !important;
+}
+[data-testid="stSidebarCollapseButton"] {
+    color: #4F46E5 !important;
+    background: #FFFFFF !important;
+    border-radius: 8px !important;
+    border: 1px solid #CBD5E1 !important;
 }
 
-/* ==========================================================
-BUTTONS
-========================================================== */
-
-.stButton>button{
-
-    border-radius:12px;
-
-    background:#4F46E5;
-
-    color:white;
-
-    border:none;
-
-    padding:.55rem 1rem;
-
-    font-weight:600;
-
-    transition:.25s;
-}
-
-.stButton>button:hover{
-
-    background:#4338CA;
-
-}
-
-/* ==========================================================
-SELECTBOX
-========================================================== */
-
-.stSelectbox div[data-baseweb="select"]{
-
-    border-radius:12px;
-
-}
-
-/* ==========================================================
-DATE INPUT
-========================================================== */
-
-.stDateInput{
-
-    border-radius:12px;
-
-}
-
-/* ==========================================================
-METRIC
-========================================================== */
-
-[data-testid="metric-container"]{
-
-    background:white;
-
-    border-radius:16px;
-
-    border:1px solid #EEF2F7;
-
-    padding:16px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
-
-}
-
-/* ==========================================================
-TABLES
-========================================================== */
-
-table{
-
-    border-collapse:collapse;
-
-}
-
-thead{
-
-    background:#F8FAFC;
-
-}
-
-th{
-
-    color:#64748B;
-
-    font-weight:600;
-
-}
-
-td{
-
-    padding:10px;
-
-}
-
-/* ==========================================================
-SIDEBAR
-========================================================== */
-
-section[data-testid="stSidebar"]{
-
-    background:white;
-
-    border-right:1px solid #E5E7EB;
-
-}
-
-/* ==========================================================
-PROGRESS BAR
-========================================================== */
-
-.stProgress>div>div{
-
-    background:#4F46E5;
-
-}
-
-/* ==========================================================
-FILE UPLOADER
-========================================================== */
-
-[data-testid="stFileUploader"]{
-
-    border-radius:14px;
-
-    border:2px dashed #CBD5E1;
-
-    background:white;
-
-}
-
-/* ==========================================================
-PLOTLY CHARTS
-========================================================== */
-
-.js-plotly-plot{
-
-    border-radius:16px;
-
-}
-
-/* ==========================================================
-SCROLLBAR
-========================================================== */
-
-::-webkit-scrollbar{
-
-    width:8px;
-}
-
-::-webkit-scrollbar-track{
-
-    background:#EEF2F7;
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:#CBD5E1;
-
-    border-radius:50px;
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-    background:#94A3B8;
-}
-
-/* ==========================================================
-FOOTER
-========================================================== */
-
-footer{
-
-    visibility:hidden;
-
-}
-
-header{
-
-    visibility:hidden;
-
-}
-
-/* ==========================================================
-END
-========================================================== */

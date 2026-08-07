@@ -15,13 +15,6 @@ import pandas as pd
 import streamlit as st  # pyrefly: ignore[missing-import]
 
 
-NAV_ITEMS = [
-    ("🏠", "Overview",           True),
-    ("📈", "Engagement Analysis", False),
-    ("🔄", "Retention Analysis",  False),
-    ("👥", "User Segments",       False),
-    ("📄", "Reports",             False),
-]
 
 
 def render_sidebar(df: pd.DataFrame) -> dict:
@@ -70,23 +63,22 @@ def render_sidebar(df: pd.DataFrame) -> dict:
             unsafe_allow_html=True,
         )
 
-        page = "Overview"
-        for icon, label, active in NAV_ITEMS:
-            bg = "background:linear-gradient(90deg,#EEF2FF,#F5F3FF);" \
-                 "color:#4F46E5;font-weight:600;" if active else "color:#374151;"
-            st.markdown(
-                f"""
-                <div style="
-                    display:flex;align-items:center;gap:10px;
-                    padding:8px 10px;border-radius:10px;
-                    {bg}font-size:14px;margin-bottom:2px;cursor:pointer;">
-                    <span>{icon}</span>
-                    <span>{label}</span>
-                    {"<span style='margin-left:auto;font-size:10px;color:#4F46E5;'>›</span>" if active else ""}
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+        NAV_LABELS = [
+            "🏠  Overview",
+            "📈  Engagement Analysis",
+            "🔄  Retention Analysis",
+            "👥  User Segments",
+            "📄  Reports",
+        ]
+
+        selected_nav = st.radio(
+            "Navigation",
+            NAV_LABELS,
+            index=0,
+            label_visibility="collapsed",
+        )
+
+        page = selected_nav.split("  ", 1)[-1]  # strip emoji prefix
 
         st.markdown(
             "<hr style='border:none;border-top:1px solid #E5E7EB;margin:12px 0;'>",
@@ -112,7 +104,7 @@ def render_sidebar(df: pd.DataFrame) -> dict:
         selected_range = st.selectbox(
             "Date Range",
             list(date_options.keys()),
-            index=0,
+            index=5,  # Default to "All time" so data is always visible
             label_visibility="collapsed",
         )
 
@@ -190,6 +182,7 @@ def render_sidebar(df: pd.DataFrame) -> dict:
         )
 
     return {
+        "page": page,
         "start_date": start_date,
         "end_date": end_date,
         "segment": selected_segment,

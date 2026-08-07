@@ -29,30 +29,13 @@ def _insight_card(col, card: Dict) -> None:
     with col:
         st.markdown(
             f"""
-            <div class="dashboard-card" style="padding:16px 18px;min-height:145px;">
-                <!-- Tag row -->
-                <div style="display:flex;justify-content:space-between;
-                            align-items:center;margin-bottom:10px;">
+            <div style="padding:16px 18px;min-height:145px;background:white;border-radius:18px;box-shadow:0 1px 3px rgba(16,24,40,0.05),0 6px 18px rgba(16,24,40,0.06);border:1px solid #EEF2F7;transition:.25s ease;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
                     <span style="font-size:18px;">{card.get('icon','💡')}</span>
-                    <span style="
-                        font-size:11px;font-weight:600;
-                        color:{colors['text']};
-                        background:{colors['bg']};
-                        padding:3px 10px;border-radius:999px;">
-                        {tag}
-                    </span>
+                    <span style="font-size:11px;font-weight:600;color:{colors['text']};background:{colors['bg']};padding:3px 10px;border-radius:999px;">{tag}</span>
                 </div>
-
-                <!-- Title -->
-                <div style="font-size:14px;font-weight:700;color:#111827;
-                            margin-bottom:6px;line-height:1.3;">
-                    {card.get('title','')}
-                </div>
-
-                <!-- Body -->
-                <div style="font-size:12px;color:#64748B;line-height:1.5;">
-                    {card.get('body','')}
-                </div>
+                <div style="font-size:14px;font-weight:700;color:#111827;margin-bottom:6px;line-height:1.3;">{card.get('title','')}</div>
+                <div style="font-size:12px;color:#64748B;line-height:1.5;">{card.get('body','')}</div>
             </div>
             """,
             unsafe_allow_html=True,

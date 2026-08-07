@@ -62,60 +62,20 @@ def _segment_card(col, config: dict, users: int, total: int,
     with col:
         st.markdown(
             f"""
-            <div class="dashboard-card" style="padding:18px 20px;min-height:185px;">
-
-                <!-- Header row -->
-                <div style="display:flex;justify-content:space-between;
-                            align-items:center;margin-bottom:10px;">
+            <div style="padding:18px 20px;min-height:185px;background:white;border-radius:18px;box-shadow:0 1px 3px rgba(16,24,40,0.05),0 6px 18px rgba(16,24,40,0.06);border:1px solid #EEF2F7;transition:.25s ease;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
                     <span style="font-size:20px;">{config['icon']}</span>
-                    <span style="
-                        font-size:11px;font-weight:600;
-                        color:{config['status_color']};
-                        background:{config['status_bg']};
-                        padding:3px 10px;border-radius:999px;">
-                        {config['status']}
-                    </span>
+                    <span style="font-size:11px;font-weight:600;color:{config['status_color']};background:{config['status_bg']};padding:3px 10px;border-radius:999px;">{config['status']}</span>
                 </div>
-
-                <!-- Segment name -->
-                <div style="font-size:14px;font-weight:600;color:#374151;
-                            margin-bottom:2px;">
-                    {config['label']}
+                <div style="font-size:14px;font-weight:600;color:#374151;margin-bottom:2px;">{config['label']}</div>
+                <div style="font-size:28px;font-weight:700;color:{config['value_color']};margin-bottom:1px;">{users:,}</div>
+                <div style="font-size:12px;color:#94A3B8;margin-bottom:10px;">{pct_of_total:.0f}% of total users</div>
+                <div style="font-size:11px;color:#64748B;margin-bottom:3px;font-weight:500;">Retention</div>
+                <div style="background:#F1F5F9;border-radius:6px;height:6px;margin-bottom:4px;">
+                    <div style="width:{bar_width}%;background:{config['bar_color']};height:6px;border-radius:6px;"></div>
                 </div>
-
-                <!-- User count -->
-                <div style="font-size:28px;font-weight:700;
-                            color:{config['value_color']};margin-bottom:1px;">
-                    {users:,}
-                </div>
-                <div style="font-size:12px;color:#94A3B8;margin-bottom:10px;">
-                    {pct_of_total:.0f}% of total users
-                </div>
-
-                <!-- Retention bar -->
-                <div style="font-size:11px;color:#64748B;
-                            margin-bottom:3px;font-weight:500;">
-                    Retention
-                </div>
-                <div style="background:#F1F5F9;border-radius:6px;
-                            height:6px;margin-bottom:4px;">
-                    <div style="
-                        width:{bar_width}%;
-                        background:{config['bar_color']};
-                        height:6px;border-radius:6px;">
-                    </div>
-                </div>
-                <div style="display:flex;justify-content:space-between;
-                            font-size:11px;color:#64748B;margin-bottom:8px;">
-                    <span>{retention:.0f}%</span>
-                </div>
-
-                <!-- Avg streak -->
-                <div style="font-size:11px;color:#64748B;">
-                    Avg Streak &nbsp;
-                    <strong style="color:#111827;">{avg_streak:.1f} days</strong>
-                </div>
-
+                <div style="font-size:11px;color:#64748B;margin-bottom:8px;"><span>{retention:.0f}%</span></div>
+                <div style="font-size:11px;color:#64748B;">Avg Streak &nbsp;<strong style="color:#111827;">{avg_streak:.1f} days</strong></div>
             </div>
             """,
             unsafe_allow_html=True,

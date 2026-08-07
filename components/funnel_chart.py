@@ -59,15 +59,19 @@ def render_funnel_chart(df: pd.DataFrame) -> None:
     else:
         streak_maintained = int(goal_logged * 0.58)
 
-    stages = [
-        {"name": "App Open",          "count": total_users,      "color": "#6366F1"},
-        {"name": "Workout Started",   "count": workout_started,  "color": "#818CF8"},
-        {"name": "Workout Completed", "count": completed_users,  "color": "#A5B4FC"},
-        {"name": "Goal Logged",       "count": goal_logged,      "color": "#C7D2FE"},
-        {"name": "Streak Maintained", "count": streak_maintained,"color": "#E0E7FF"},
+    stages = [\
+        {"name": "App Open",          "count": total_users,                            "color": "#6366F1"},
+        {"name": "Workout Started",   "count": workout_started,                        "color": "#818CF8"},
+        {"name": "Workout Completed", "count": min(completed_users, workout_started),  "color": "#A5B4FC"},
+        {"name": "Goal Logged",       "count": min(goal_logged, completed_users),      "color": "#C7D2FE"},
+        {"name": "Streak Maintained", "count": min(streak_maintained, goal_logged),    "color": "#E0E7FF"},
     ]
 
-    max_count = stages[0]["count"]
+    # Guard: ensure no stage exceeds the previous and no count is 0
+    for i in range(1, len(stages)):
+        stages[i]["count"] = max(1, min(stages[i]["count"], stages[i-1]["count"]))
+
+    max_count = max(stages[0]["count"], 1)
 
     fig = go.Figure()
 
@@ -76,7 +80,7 @@ def render_funnel_chart(df: pd.DataFrame) -> None:
 
         # Drop-off vs previous stage
         if i > 0:
-            prev = stages[i - 1]["count"]
+            prev = max(stages[i - 1]["count"], 1)
             drop = round((prev - stage["count"]) / prev * 100, 0)
             drop_label = f"↓ {drop:.0f}%  {stage['count']:,}"
         else:
